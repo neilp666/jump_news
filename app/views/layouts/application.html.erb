@@ -9,6 +9,14 @@
   </head>
 
   <body>
+    <div class="container">
+    <% if flash[:notice] %>
+      <p class="alert alert-info">
+        <%= flash[:notice] %>
+      </p>
+      <% end %>
+      <%= render 'shared/navbar' %>
     <%= yield %>
+   </div>
   </body>
 </html>
