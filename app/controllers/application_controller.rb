@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  def prevent_unauthorized_user_access
+    redirect_to root_path, notice: 'Sorry, you cannot access that page', status: :found unless logged_in?
+  end
+
+  def prevent_logged_in_user_access
+    redirect_to root_path, notice: 'Sorry, you cannot access that page', status: :found if logged_in?
+  end
+
   def login(user)
     session[:user_id] = user.id
   end
