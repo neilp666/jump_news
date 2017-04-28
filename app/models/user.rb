@@ -9,4 +9,8 @@ class User < ApplicationRecord
 
   has_many :links, dependent: :destroy
 
+  def owns_link?(link)
+    self == link.user
+  end
+
 end

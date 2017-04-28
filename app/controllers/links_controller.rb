@@ -23,6 +23,34 @@ class LinksController < ApplicationController
   end
 
   def edit
+    link = Link.find_by(id: params[:id])
+
+    if current_user.owns_link?(link)
+      @link = link
+    else
+      redirect_to root_path, notice: 'Not authorized to edit this link'
+    end
+  end
+
+  def update
+    @link = current_user.links.find_by(id: params[:id])
+
+    if @link.update(link_params)
+      redirect_to root_path, notice: 'Link successfully updated'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    link = Link.find_by(id: params[:id])
+
+    if current_user.owns_link?(link)
+      link.destroy
+      redirect_to root_path, notice: 'Link successfully deleted'
+    else
+      redirect_to root_path, notice: 'Not authorized to delete this link'
+    end
   end
 
   private
