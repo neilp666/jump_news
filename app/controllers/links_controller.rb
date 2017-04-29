@@ -27,6 +27,17 @@ class LinksController < ApplicationController
   def show
   end
 
+  def upvote
+    link = Link.find_by(id: params[:id])
+    if current_user.upvoted?(link)
+      current_user.remove_vote(link)
+    else
+      current_user.upvote(link)
+    end
+
+    redirect_to root_path
+  end
+
   def edit
     link = Link.find_by(id: params[:id])
 

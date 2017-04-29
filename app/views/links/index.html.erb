@@ -16,6 +16,10 @@
           <%= time_ago_in_words(link.created_at) %> ago
         </span>
 
+        <span class="points">
+          <%= pluralize(link.points, 'point') %> by <%= link.user.username %>
+        </span>
+        
         <span class="comment-count">
           <%- link_to pluralize(link.comment_count, 'comment'), link %>
         </span>
@@ -28,6 +32,12 @@
           <span class="delete-link">
             <%= link_to "delete", link, method: :delete, data: { confirm: "Are you sure?" } %>
           </span>
+          <% end %>
+
+          <% if logged_in? %>
+            <span class="upvote-link">
+              <%= link_to "upvote (#{link.upvotes})", upvote_link_path(link), method: :post %>
+            </span>
           <% end %>
       </div>
 

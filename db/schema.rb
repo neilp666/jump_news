@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428145215) do
+ActiveRecord::Schema.define(version: 20170429103654) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 20170428145215) do
     t.string   "url"
     t.text     "description"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "points",      default: 1
+    t.float    "hot_score"
     t.index ["user_id"], name: "index_links_on_user_id"
   end
 
@@ -37,6 +39,17 @@ ActiveRecord::Schema.define(version: 20170428145215) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "link_id"
+    t.integer  "upvote",     default: 0
+    t.integer  "downvote",   default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["link_id"], name: "index_votes_on_link_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
 end

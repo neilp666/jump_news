@@ -10,8 +10,13 @@ class Link < ApplicationRecord
             allow_blank: true
 
   has_many :comments
+  belongs_to :votes
 
   def comment_count
     comments.length
+  end
+
+  def upvotes
+    votes.sum(:upvote)
   end
 end
