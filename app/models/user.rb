@@ -13,4 +13,10 @@ class User < ApplicationRecord
     self == link.user
   end
 
+  def owns_comment?(comment)
+    self == comment.user
+  end
+
+  has_many :comments
+
 end

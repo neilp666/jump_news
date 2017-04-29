@@ -9,6 +9,11 @@ class LinksController < ApplicationController
     @link = Link.new
   end
 
+  def show
+    @link = Link.find_by(id: params[:id])
+    @comments = @link.comments
+  end
+
   def create
     @link = current_user.links.new(link_params)
 
